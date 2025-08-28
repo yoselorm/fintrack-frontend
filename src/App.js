@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { Routes, Route } from "react-router-dom";
+import Auth from "./pages/Auth";
+import Dashboard from "./pages/Dashboard";
+import Header from "./components/Header";
+import Referrals from "./pages/Referrals";
+import PrivateRoute from "./services/privateRoute";
+import { useSelector } from "react-redux";
 
 function App() {
+  const {user,isAuthenticated} = useSelector((state)=>state.auth)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen flex flex-col">
+    
+      {user && isAuthenticated ? <Header />: null}
+
+      <div className="flex-1">
+        <Routes>
+          <Route path="/" element={<Auth />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/referrals" element={<Referrals />} />
+          </Route>
+        </Routes>
+      </div>
     </div>
   );
 }

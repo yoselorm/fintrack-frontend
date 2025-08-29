@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 
+
+const BASE_URL = process.env.REACT_APP_BASE_API
 // Helper functions for sessionStorage
 const saveToSessionStorage = (key, value) => {
   try {
@@ -40,7 +42,7 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await fetch('http://localhost:5001/api/auth/login', {
+      const response = await fetch(`${BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +91,7 @@ export const signupUser = createAsyncThunk(
         throw new Error('Password must be at least 6 characters');
       }
 
-      const response = await fetch('http://localhost:5001/api/auth/register', {
+      const response = await fetch(`${BASE_URL}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -136,7 +138,7 @@ export const verifyToken = createAsyncThunk(
         throw new Error('No token found');
       }
 
-      const response = await fetch('http://localhost:5000/api/auth/me', {
+      const response = await fetch(`${BASE_URL}/api/auth/me`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

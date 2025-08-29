@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+const BASE_URL = process.env.REACT_APP_BASE_API
 
 const initialReferralState = {
     referralCode: '',
@@ -19,7 +20,7 @@ const initialReferralState = {
           throw new Error('No authentication token');
         }
   
-        const response = await fetch('http://localhost:5001/api/referrals', {
+        const response = await fetch(`${BASE_URL}/api/referrals`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

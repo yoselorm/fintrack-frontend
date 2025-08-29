@@ -1,5 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+const BASE_URL = process.env.REACT_APP_BASE_API
+
+
 const initialFinancialState = {
   balance: 0,
   monthlySpending: 0,
@@ -22,7 +25,7 @@ export const fetchFinancialData = createAsyncThunk(
         throw new Error('No authentication token');
       }
 
-      const response = await fetch('http://localhost:5001/api/financial/dashboard', {
+      const response = await fetch(`${BASE_URL}/api/financial/dashboard`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -62,7 +65,7 @@ export const fetchUserTransactions = createAsyncThunk(
       if (startDate) params.append('startDate', startDate);
       if (endDate) params.append('endDate', endDate);
 
-      const response = await fetch(`http://localhost:5001/api/transactions?${params}`, {
+      const response = await fetch(`${BASE_URL}/api/transactions?${params}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -92,7 +95,7 @@ export const addTransaction = createAsyncThunk(
         throw new Error('No authentication token');
       }
 
-      const response = await fetch('http://localhost:5001/api/transactions', {
+      const response = await fetch(`${BASE_URL}/api/transactions`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -124,7 +127,7 @@ export const updateTransaction = createAsyncThunk(
         throw new Error('No authentication token');
       }
 
-      const response = await fetch(`http://localhost:5001/api/transactions/${id}`, {
+      const response = await fetch(`${BASE_URL}/api/transactions/${id}`, {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -156,7 +159,7 @@ export const deleteTransaction = createAsyncThunk(
         throw new Error('No authentication token');
       }
 
-      const response = await fetch(`http://localhost:5001/api/transactions/${transactionId}`, {
+      const response = await fetch(`${BASE_URL}/api/transactions/${transactionId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -186,7 +189,7 @@ export const fetchTransactionStats = createAsyncThunk(
         throw new Error('No authentication token');
       }
 
-      const response = await fetch(`http://localhost:5001/api/transactions/stats?period=${period}`, {
+      const response = await fetch(`${BASE_URL}/api/transactions/stats?period=${period}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

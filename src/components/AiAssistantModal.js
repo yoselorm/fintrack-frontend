@@ -65,7 +65,7 @@ What would you like to explore today?`,
     // Gemini API call...the setup is done in the backend with the API key
     const getGeminiResponse = async (userMessage) => {
         try {
-            const response = await fetch('http://localhost:5001/api/financial-advice', {
+            const response = await fetch(`${process.env.REACT_APP_BASE_API}/api/financial-advice`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

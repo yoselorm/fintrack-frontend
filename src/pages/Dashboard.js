@@ -10,6 +10,7 @@ import {
 } from '../redux/FinancialDataSlice';
 import AddTransactionForm from '../components/AddTransactionForm';
 import AiAssistantModal from '../components/AiAssistantModal';
+import { fetchReferralData } from '../redux/ReferralDataSlice';
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,10 @@ const Dashboard = () => {
   const [transactionSuccess, setTransactionSuccess] = useState('');
   const [showAI, setShowAI] = useState(false);
 
+   useEffect(() => {
+      dispatch(fetchReferralData());
+    }, [dispatch]);
+    
   const { user } = useSelector((state) => state.auth)
 
   const {
